@@ -12,13 +12,13 @@ const directoryPath = path.join(__dirname, '../public');
 
 app.use(express.static(directoryPath));
 
-let count = 1;
 io.on('connection', (socket)=>{
-    socket.emit('countUpdated', count);
-    socket.on('increment', ()=>{
-        count++;
-        io.emit('countUpdated', count);
-    })
+    console.log('welcome !');
+
+    socket.emit('message', 'welcome!');
+    socket.on('sendMessage', (message) => {
+        io.emit('message', message);
+    });
 });
 
 server.listen(port, ()=>{
